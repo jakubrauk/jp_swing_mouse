@@ -7,4 +7,4 @@
   - r - kwadrat
   - o - owal
 
-- Uciekający guzik usuwa narysowane kształty
+- Uciekający guzik usuwa narysowane kształty (guzik ma strefę bezpieczną 20px od prawej strony)
