@@ -2,28 +2,24 @@ package jr.soft;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MainWindow window = new MainWindow();
-                    window.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                MainWindow window = new MainWindow();
+                window.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
             }
         });
     }
 
     public MainWindow() throws HeadlessException {
-        this("Swing mouse and keyboard app");
+        this("Swing mouse and keyboard listener app");
     }
 
     public MainWindow(String title) throws HeadlessException {
@@ -37,19 +33,26 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Content Pane
-
         JPanel contentPane = new JPanel();
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        // Buttons initialization
-
-        RunningButton runningButton = new RunningButton("Catch me!", 600, 600);
-
+        // Button initialization
+        RunningButton runningButton = new RunningButton("Remove shapes", 600, 600);
         contentPane.add(runningButton);
 
+        // Canvas initialization
+        ShapeCanvas shapeCanvas = new ShapeCanvas();
+        shapeCanvas.setBounds(5, 5, 590, 590);
+        contentPane.add(shapeCanvas);
+        shapeCanvas.setLayout(null);
 
-
+        runningButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                shapeCanvas.removeShapes();
+            }
+        });
     }
 }
 
